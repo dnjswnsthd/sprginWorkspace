@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mybatis-userservice-mapping.xml : SQL 를 갖는 설정화일 (MetaData) - MyBatis 
+	Framework 은 XML MetaData를 사용 SQL구문을 관리하며, (SQL은 xml 을 통해 적절히 캡슐화 되어 애플리케이선 
+	의 외부로 분리함) - SQL문의 입력(?) / 출력(?)을 매핑한다. <== 아래의 select element 참조 -->
+
+<!-- SQL definition -->
+<mapper namespace="UserMapper01">
+	<select id="getUserList" resultType="user">
+		select user_id userId, user_name userName, password, age, grade, reg_date redDate
+		from users
+	</select>
+	
+	<!-- 단순 파라미터 #{VALUE} -->
+	<select id="getUser" parameterType="string" resultType="user">
+		select user_id userID, user_name userName, password, age, grade, reg_date regDate
+		from users
+		where user_id = #{VALUE}
+	</select>
+	
+	<select id="findUserId" parameterType="user" resultType="string">
+		select user_name
+		from users
+		where user_id = #{userId} and password = #{password}
+	</select>
+</mapper>
+
+
+<!--
+단순 파라미터 값을 받는 문법 #{VALUE}
+j2se api에서 제공되는 라이브러리 중에서 많이 사용되는 것들은 전부 알리아스로 제공되어져 있따.
+java.lang.String :: string 
+java.lang.Byte, Integer, Float, Double :: byte, int, float, double
+java.util.Hashmap :: hashmap
+java.util.ArrayList :: arraylist
+::
+byte :: _byte
+int :: _int
+ -->

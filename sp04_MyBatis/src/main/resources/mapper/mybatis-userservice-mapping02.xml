@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- SQL definition -->
+<mapper namespace="UserMapper02">
+
+	
+	<!-- 단순 파라미터 #{VALUE} -->
+	<select id="getUser01" parameterType="string" resultType="user">
+		select user_id userID, user_name userName, password, age, grade, reg_date regDate
+		from users
+		where user_id LIKE #{value}
+	</select>
+	
+	<select id="getUser02" parameterType="user" resultType="user">
+		select user_id userID, user_name userName, password, age, grade, reg_date regDate
+		from users
+		where user_id LIKE  #{userId}
+	</select>
+	
+	<select id="getUser03" parameterType="string" resultType="user">
+		select user_id userID, user_name userName, password, age, grade, reg_date regDate
+		from users
+		where user_id LIKE #{value} || '%'
+	</select>
+	
+	<select id="getUser04" parameterType="user" resultType="user">
+		select user_id userID, user_name userName, password, age, grade, reg_date regDate
+		from users
+		where user_id LIKE '%' || #{userId} 
+	</select>
+
+</mapper>
+
+
+<!--
+LIKE연산자와 와일드 카드(%, _)
+ -->

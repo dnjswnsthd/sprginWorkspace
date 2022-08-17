@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 심플하게 CRUD 다 해보겠다. -->
+<mapper namespace="UserMapper03">
+	<insert id="addUser" parameterType="user">
+		Insert into users(user_id, user_name, password, age, grade, reg_Date)
+		values(#{userId}, #{userName}, #{password}, #{age}, #{grade}, sysDate)
+	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		UPDATE users
+		set user_name = #{userName}
+		where user_id = #{userId}
+	</update>
+	
+	<delete id="removeUser" parameterType="string">
+		delete from users
+		where user_id = #{value}
+	</delete>
+</mapper>
