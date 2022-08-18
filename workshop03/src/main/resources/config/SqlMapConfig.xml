@@ -4,13 +4,18 @@
 <configuration>
 	<!-- dbconn.properties 파일에 있기에 Wiring -->
 	<properties resource="config/dbconn.properties"></properties>
-
+	
+	<!-- null값을 허용하는 오라클의 옵션 .. MySql에서는 이 부분이 기본으로 들어있다. -->
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
 	<!-- 2. vo정보도 Wiring -->
 	<typeAliases>
-		<typeAlias type="mybatis.services.domain.User" alias="user" />
+		<typeAlias type="spring.service.domain.MemberVO" alias="member" />
 	</typeAliases>
 
-	<!-- 3. JDBC 환경 구축 단위테스트-->
+	<!-- 3. JDBC 환경 구축 -->
 	<environments default="develop">
 		<environment id="develop">
 			<transactionManager type="JDBC"></transactionManager>
@@ -25,7 +30,7 @@
 
 	<!-- 4. SQL Mapper -->
 	<mappers>
-		<mapper resource="mapper/mybatis-userservice-mapping.xml" />
+		<mapper resource="mapper/mybatis-memberservice-mapping.xml" />
 	</mappers>
 
 </configuration>

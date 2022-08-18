@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="MemberMapper">
+	<sql id="select-member">
+		SELECT id, password, name, address
+		FROM member
+	</sql>
+
+	<insert id="registerMember" parameterType="member">
+		INSERT INTO member(id, password, name, address)
+		values(#{id}, #{password}, #{name}, #{address})
+	</insert>
+	
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM member
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="updateMember" parameterType="member">
+		UPDATE member 
+		SET password = #{password}, name = #{name}, address=#{address}
+		WHERE id = #{id}
+	</update>
+	
+	<select id="showAllMember" resultType="member">
+		<include refid="select-member" />
+	</select>
+	
+	<!-- getMember를 통해 isExist와 login 처리 -->
+	<select id="getMember" parameterType = "hashMap" resultType="member">
+		<include refid="select-member" />
+		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
+			<if test="password != null">
+				and password = #{password}
+			</if>
+		</where>
+	</select>
+</mapper>
